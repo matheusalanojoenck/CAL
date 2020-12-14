@@ -90,7 +90,7 @@ void print_tree(node_arvore *root)
         else
         {
             prev = current->esq;
-            while (prev->dir != NULL && prev->dir != NULL)
+            while (prev->dir != NULL && prev->dir != current)
             {
                 prev = prev->dir;
             }
