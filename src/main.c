@@ -151,16 +151,41 @@ unsigned int fib_rec(unsigned int n)
     return fib_rec(n - 2) + fib_rec(n - 1);
 }
 
-int main(int argc, char const *argv[])
+/**
+ * Função usada para testar e medir o tempo da função fibonacci
+ */
+void teste_fib()
+{
+    struct timeval begin, end;
+    for (int i = 0; i < 100000; i++)
+    {
+        gettimeofday(&begin, 0);
+        fib_n_rec(i);
+        gettimeofday(&end, 0);
+        printf("%ld\n", end.tv_usec - begin.tv_usec);
+    }
+}
+
+/**
+ * Função usada para testar as funções ins_fim_lista e ins_inic_lista
+ */
+void teste_lista()
 {
     node_lista *L = NULL;
-
     for (int i = 0; i < 5; i++)
     {
         ins_fim_lista(i, &L);
+        //ins_inic_lista(i, %L);
     }
 
     imp_lista(L);
+}
+
+int main(int argc, char const *argv[])
+{
+    teste_fib();
+
+    //teste_lista();
 
     return 0;
 }
