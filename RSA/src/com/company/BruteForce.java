@@ -1,74 +1,48 @@
 package com.company;
 
+import javax.management.MBeanServerInvocationHandler;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BruteForce {
-    public static BigInteger sqrtF(BigInteger x){
-        // if x==0 or x==1
-        if (x.equals(BigInteger.ZERO)
-                || x.equals(BigInteger.ONE)) {
-            return x;
+    /**
+     *
+     * @param n chave publica
+     * @param e chave publica
+     * @param c mensagem criptografada
+     */
+    public static void primeFactors(BigInteger n, BigInteger e, BigInteger c){
+        List<BigInteger> primeFactors = new ArrayList<>();
+        BigInteger d;
+        while (n.mod(BigInteger.TWO).compareTo(BigInteger.ZERO) == 0) {
+            primeFactors.add(BigInteger.TWO);
+            //System.out.print(2 + " ");
+            n = n.divide(BigInteger.TWO);
         }
 
-        BigInteger two
-                = BigInteger.valueOf(2L);
-        BigInteger y;
+        for (BigInteger i = BigInteger.valueOf(3);
+            i.compareTo(n.sqrt()) <= 0;
+            i = i.add(BigInteger.TWO)){
+            while (n.mod(i).compareTo(BigInteger.ZERO) == 0){
+                primeFactors.add(i);
+                n = n.divide(i);
+            }
+        }
 
-        // run a loop
-        y = x.divide(two);
-        while (y.compareTo(x.divide(y)) > 0)
-            y = ((x.divide(y)).add(y))
-                    .divide(two);
-        return y;
+        if (n.compareTo(BigInteger.TWO) > 0){
+            primeFactors.add(n);
+            //System.out.print(n);
+        }
+        if(primeFactors.size() != 2){
+            System.out.println("Nao foram encontrados dois números primos de " + n);
+        }else{
+            BigInteger phi = primeFactors.get(0).subtract(BigInteger.ONE).multiply(primeFactors.get(1).subtract(BigInteger.ONE));
+            d = e.modInverse(phi);
+            BigInteger decript = c.modPow(d, n);
+            System.out.println("Mensagem interceptada: " + c +
+                            "\nMensagem descriptografa por forca bruta: " + decript);
+        }
+        System.out.println(primeFactors);
     }
-    public static BigInteger sqrtC(BigInteger x){
-        BigInteger y = sqrtF(x);
-
-        if (x.compareTo(y.multiply(y)) == 0) {
-            return y;
-        }
-        else {
-            return y.add(BigInteger.ONE);
-        }
-    }
-
-    static String FermatFactors(BigInteger n){
-        // constants
-        BigInteger ONE = new BigInteger("1");
-        BigInteger ZERO = new BigInteger("0");
-        BigInteger TWO = new BigInteger("2");
-
-        // if n%2 ==0 then return the factors
-        if (n.mod(TWO).equals(ZERO)) {
-            return n.divide(TWO)
-                    .toString()
-                    + ", 2";
-        }
-
-        // find the square root
-        BigInteger a = sqrtC(n);
-
-        // if the number is a perfect square
-        if (a.multiply(a).equals(n)) {
-            return a.toString()
-                    + ", " + a.toString();
-        }
-
-        // else perform factorisation
-        BigInteger b;
-        while (true) {
-            BigInteger b1 = a.multiply(a)
-                    .subtract(n);
-            b = sqrtF(b1);
-
-            if (b.multiply(b).equals(b1))
-                break;
-            else
-                a = a.add(ONE);
-        }
-
-        return a.subtract(b).toString()
-                + ", " + a.add(b).toString();
-    }
-
 }

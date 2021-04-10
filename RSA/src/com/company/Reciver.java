@@ -16,7 +16,7 @@ public class Reciver {
 
 
     Reciver(){
-        System.out.printf("Números privados criados! \np: %s\nq: %s\nd: %s\n", p.toString(), q.toString(), d.toString());
+        System.out.printf("Números privasos criados! \np: %s\nq: %s\nd: %s\n", p.toString(), q.toString(), d.toString());
     }
 
     public BigInteger getN() {
