@@ -15,17 +15,17 @@ public class BruteForce {
         List<BigInteger> primeFactors = new ArrayList<>();
         BigInteger d;
 
-        //
+        //O(log n)
         while (n.mod(BigInteger.TWO).compareTo(BigInteger.ZERO) == 0) {
             primeFactors.add(BigInteger.TWO);
             //System.out.print(2 + " ");
             n = n.divide(BigInteger.TWO);
         }
 
-        for (BigInteger i = BigInteger.valueOf(3);
+        for (BigInteger i = BigInteger.valueOf(3);//O(sqrt(n) log n)
             i.compareTo(n.sqrt()) <= 0;
-            i = i.add(BigInteger.TWO)){
-            while (n.mod(i).compareTo(BigInteger.ZERO) == 0){
+            i = i.add(BigInteger.TWO)){ //O(sqrt(n))
+            while (n.mod(i).compareTo(BigInteger.ZERO) == 0){//O(log n)
                 primeFactors.add(i);
                 n = n.divide(i);
             }
@@ -35,6 +35,7 @@ public class BruteForce {
             primeFactors.add(n);
             //System.out.print(n);
         }
+
         if(primeFactors.size() != 2){
             System.out.println("Nao foram encontrados dois números primos de " + n);
         }else{

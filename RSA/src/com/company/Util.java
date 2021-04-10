@@ -29,7 +29,7 @@ public class Util {
     }
 
     /**
-     * Método de fermat para determinar a primalidade de número (O(k log n))
+     * Método de fermat para determinar a primalidade de número (O(k log n)
      * @param n, o número que está sendo feito os teste de primalidade
      * @param k, a quantidade de vez que o teste vai ser executado (quando maior o k, maior a chance de um resultado certo)
      * @return true ou false, caso a variável n seja ou não um numero primo
