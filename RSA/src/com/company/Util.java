@@ -5,7 +5,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 public class Util {
-    public static int BIT_LENGTH = 32;
+    public static int BIT_LENGTH = 56;
     private static final Random rand = new SecureRandom();
 
     /**
@@ -37,6 +37,7 @@ public class Util {
     public static boolean fermat(BigInteger n, int k){
         for(int i = 0; i < k; i++){
             BigInteger a = new BigInteger("" + rand.nextInt());
+            //System.out.println(a.toString() + " " + n);
             BigInteger ans = a.modPow(n.subtract(BigInteger.ONE), n);
             if(!ans.equals(BigInteger.ONE))
                 return false;
@@ -66,7 +67,8 @@ public class Util {
     public static BigInteger randomPrimeBigInteger(){
         BigInteger n;
         do{
-            n = new BigInteger(BIT_LENGTH /2, rand);
+            n = new BigInteger(BIT_LENGTH /2, rand).abs();
+            if(n.compareTo(BigInteger.ZERO) == 0) n = n.add(BigInteger.ONE);
         }while (!fermat(n, 60));
         return n;
     }

@@ -1,6 +1,5 @@
 package com.company;
 
-import javax.management.MBeanServerInvocationHandler;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +14,8 @@ public class BruteForce {
     public static void primeFactors(BigInteger n, BigInteger e, BigInteger c){
         List<BigInteger> primeFactors = new ArrayList<>();
         BigInteger d;
+
+        //
         while (n.mod(BigInteger.TWO).compareTo(BigInteger.ZERO) == 0) {
             primeFactors.add(BigInteger.TWO);
             //System.out.print(2 + " ");
@@ -40,9 +41,9 @@ public class BruteForce {
             BigInteger phi = primeFactors.get(0).subtract(BigInteger.ONE).multiply(primeFactors.get(1).subtract(BigInteger.ONE));
             d = e.modInverse(phi);
             BigInteger decript = c.modPow(d, n);
-            System.out.println("Mensagem interceptada: " + c +
-                            "\nMensagem descriptografa por forca bruta: " + decript);
+//            System.out.println("Mensagem interceptada: " + c +
+//                            "\nMensagem descriptografa por forca bruta: " + decript);
         }
-        System.out.println(primeFactors);
+        //System.out.println(primeFactors);
     }
 }

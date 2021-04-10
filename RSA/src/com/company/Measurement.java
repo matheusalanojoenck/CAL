@@ -2,6 +2,8 @@ package com.company;
 
 import java.io.*;
 import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.Random;
 
 public class Measurement {
     private static final int RUN = 100;
@@ -44,8 +46,10 @@ public class Measurement {
 
             final BigInteger d = e.modInverse(phi);
 
-            //Novo caractere a ser criptografado
-            BigInteger m = new BigInteger("21");
+            //Novo caractere,(randômico) a ser criptografado
+            Random random = new SecureRandom();
+            int msg = random.nextInt((255) + 1);
+            BigInteger m = new BigInteger(String.valueOf(msg));
 
             start = System.nanoTime();
             BigInteger encode = m.modPow(e, n);
@@ -66,6 +70,18 @@ public class Measurement {
             total = finish - start;
             try {
                 FileWriter myWriter = new FileWriter("timeDecode.txt", true);
+                myWriter.write(total+"\n");
+                myWriter.close();
+            } catch (IOException ex) {
+                System.out.println("An error occurred.");
+                ex.printStackTrace();
+            }
+            start = System.nanoTime();
+            BruteForce.primeFactors(n, e, encode);
+            finish = System.nanoTime();
+            total = finish - start;
+            try {
+                FileWriter myWriter = new FileWriter("timeBruteForce.txt", true);
                 myWriter.write(total+"\n");
                 myWriter.close();
             } catch (IOException ex) {
