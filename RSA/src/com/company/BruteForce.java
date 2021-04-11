@@ -6,7 +6,7 @@ import java.util.List;
 
 public class BruteForce {
     /**
-     *
+     * O(sqrt(n) log n)
      * @param n chave publica
      * @param e chave publica
      * @param c mensagem criptografada
@@ -18,11 +18,11 @@ public class BruteForce {
         //O(log n)
         while (n.mod(BigInteger.TWO).compareTo(BigInteger.ZERO) == 0) {
             primeFactors.add(BigInteger.TWO);
-            //System.out.print(2 + " ");
             n = n.divide(BigInteger.TWO);
         }
 
-        for (BigInteger i = BigInteger.valueOf(3);//O(sqrt(n) log n)
+        //O(sqrt(n) log n)
+        for (BigInteger i = BigInteger.valueOf(3);
             i.compareTo(n.sqrt()) <= 0;
             i = i.add(BigInteger.TWO)){ //O(sqrt(n))
             while (n.mod(i).compareTo(BigInteger.ZERO) == 0){//O(log n)
@@ -42,8 +42,8 @@ public class BruteForce {
             BigInteger phi = primeFactors.get(0).subtract(BigInteger.ONE).multiply(primeFactors.get(1).subtract(BigInteger.ONE));
             d = e.modInverse(phi);
             BigInteger decript = c.modPow(d, n);
-//            System.out.println("Mensagem interceptada: " + c +
-//                            "\nMensagem descriptografa por forca bruta: " + decript);
+            System.out.println("Mensagem interceptada: " + c +
+                            "\nMensagem descriptografa por forca bruta: " + decript);
         }
         //System.out.println(primeFactors);
     }

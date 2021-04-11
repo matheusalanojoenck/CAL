@@ -37,7 +37,8 @@ public class Util {
     public static boolean fermat(BigInteger n, int k){
         for(int i = 0; i < k; i++){
             BigInteger a = new BigInteger("" + rand.nextInt());
-            //System.out.println(a.toString() + " " + n);
+
+            // a^n-1 % n
             BigInteger ans = a.modPow(n.subtract(BigInteger.ONE), n);
             if(!ans.equals(BigInteger.ONE))
                 return false;

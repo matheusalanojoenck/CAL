@@ -9,7 +9,7 @@ public class Measurement {
     private static final int RUN = 100;
 
 
-    public static void timeEverthing(){
+    public static void timeEverything(){
         long start, finish, total;
         for (int i = 0; i < RUN; i++){
             start = System.nanoTime();
